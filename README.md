@@ -21,7 +21,7 @@
             Dashboard yang dibangun menggunakan Kibana akan digunakan untuk memvisualisasikan hasil analisis ini, memberikan gambaran yang jelas tentang performa penjualan dan memungkinkan stakeholders untuk mengambil keputusan berbasis data.
         </p>
         <p>
-            Untuk mencapai tujuan tersebut, seluruh alur pengelolaan data, mulai dari ETL (Extract, Transform, Load) diatur dan diotomatisasi menggunakan Apache Airflow pada file <code>DAG for Electronic Add-Ons for Product Sales Optimization.py</code> dan kemudian dilanjutkan proses analisa dan visualisasi melalui Elastic Kibana yang terdokumentasikan pada folder Kobana Dashboard Capture.
+            Untuk mencapai tujuan tersebut, seluruh alur pengelolaan data, mulai dari ETL (Extract, Transform, Load) diatur dan diotomatisasi menggunakan Apache Airflow pada file <code>DAG for Electronic Add-Ons for Product Sales Optimization.py</code> dan kemudian dilanjutkan proses analisa dan visualisasi melalui Elastic Kibana yang terdokumentasikan pada folder <code>Kibana Dashboard Capture</code> .
         </p>
         <p>
             Sebagai tambahan, juga dilakukan validasi data menggunakan Great Expectation pada file <code>Great Expectation.ipynb</code>.
