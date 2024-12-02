@@ -1,0 +1,42 @@
+----------------------------------------------------
+DDL for Electronic Add-Ons for Product Sales Optimization
+
+Created by      : Ediashta Narendra Amarussalam 
+
+Bagian ini merupakan dokumentasi query yang dilakukan untuk pembuatan database dan table pada PostgreSQL melalui Docker 
+sebagai prerequisite berjalannya airflow pada file DAG for Electronic Add-Ons for Product Sales Optimization.py
+----------------------------------------------------
+
+
+URL Dataset: https://www.kaggle.com/datasets/cameronseamons/electronic-sales-sep2023-sep2024
+
+Syntax DDL untuk pembuatan database dan table: 
+- Database dibuat secara manual melalui PGAdmin (terjadi error dan belum ditemukan syntax untuk membuat databse melalui docker)
+- Syntax pembuatan table melalui docker:
+CREATE TABLE table_m3 (
+    "Customer ID" INT,
+    "Age" INT,
+    "Gender" VARCHAR(10),
+    "Loyalty Member" VARCHAR(3),
+    "Product Type" VARCHAR(50),
+    "SKU" VARCHAR(50),
+    "Rating" INT,
+    "Order Status" VARCHAR(20),
+    "Payment Method" VARCHAR(20),
+    "Total Price" FLOAT,
+    "Unit Price" FLOAT,
+    "Quantity" INT,
+    "Purchase Date" DATE,
+    "Shipping Type" VARCHAR(20),
+    "Add-ons Purchased" VARCHAR(255),
+    "Add-on Total" FLOAT
+);
+
+Note: tidak dilakukan define PRIMARY KEY karena Customer ID memiliki beberapa values/ tidak unique
+
+Syntax DML untuk insert data ke database:
+- Copy csv file from original path to postgres path:
+docker cp "/Users/ediashtanarendra/Documents/Course 2024/FTDS 036/003_Phase 2/Githup Repo P 2/002_MS3/p2-ftds036-rmt-m3-Ediashta-Narendra/P2M3_ediashta_narendra_data_raw.csv" 
+- Import raw .csv file via docker terminal:
+docker exec -it postgres psql -U airflow -d airflow
+\COPY table_m3 FROM '/var/lib/postgresql/data/P2M3_ediashta_narendra_data_raw.csv' DELIMITER ',' CSV HEADER QUOTE '"';
