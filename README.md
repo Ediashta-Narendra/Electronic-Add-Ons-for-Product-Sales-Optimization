@@ -19,7 +19,7 @@
             The entire data pipeline was automated using Apache Airflow, covering the full ETL process — starting from extracting transactional records from a PostgreSQL database, transforming and cleaning the dataset, and finally loading it into an Elasticsearch index. 
         </p>    
         <p>
-            The data obtained from Kaggle spans from 2023 to 2024, comprising 20,000 rows, and serves as the foundation for downstream analysis and optimization. Raw dataset is included in the repository as <code>electronic_data_raw.csv</code>, while the cleaned version—generated through the ETL process—is saved as <code>electronic_data_clean.csv</code>. The final, processed data is then loaded into an Elasticsearch index for further analysis and exploration.
+            The data obtained from <a href="https://www.kaggle.com/datasets/cameronseamons/electronic-sales-sep2023-sep2024" target="_blank">Kaggle</a> spans from 2023 to 2024, comprising 20,000 rows, and serves as the foundation for downstream analysis and optimization. Raw dataset is included in the repository as <code>electronic_data_raw.csv</code>, while the cleaned version—generated through the ETL process—is saved as <code>electronic_data_clean.csv</code>. The final, processed data is then loaded into an Elasticsearch index for further analysis and exploration.
         </p>
         <p>
             To ensure data quality, expectations were defined and validated using the Great Expectations framework, with the process documented in the notebook <code>Great Expectation.ipynb</code>.
