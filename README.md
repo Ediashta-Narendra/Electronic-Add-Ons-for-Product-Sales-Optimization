@@ -66,6 +66,7 @@
     <p>
         <h2>Deliverables</h2>
         <ul>
+        <p>
             <a href="https://github.com/Ediashta-Narendra/Electronic-Add-Ons-for-Product-Sales-Optimization/blob/main/DAG%20for%20Electronic%20Add-Ons%20for%20Product%20Sales%20Optimization.py" target="_blank">Airflow DAG file to orchestrate ETL pipeline</a>
         <p>
             <a href="https://github.com/Ediashta-Narendra/Electronic-Add-Ons-for-Product-Sales-Optimization/blob/main/electronic_data_raw.csv" target="_blank">Unprocessed dataset from the data source</a>
