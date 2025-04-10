@@ -2,12 +2,17 @@
 =================================================
 DAG for Electronic Add-Ons for Product Sales Optimization
 
-Created by  : Ediashta Narendra
+Created by  : Ediashta Narendra - ver1.1 10 Apr 2025
 
-Program ini dibuat dengan tujuan automatisasi fetch data dari PostgreSQL, clean data menggunakan python dan export data ke ElasticSearch.
-Dataset yang digunakan adalah datset transaksi produk elektronik pada rentang waktu tahun 2023 - 2024 dengan ukuran data 20,000 baris. 
-Sebagai informasi tambahan, dataset yang digunakan juga terlampir dalam derektori ini, dengan nama electronic_data_raw.csv 
-dan akan dihasilkan data yang sudah diproses dengan nama electronic_data_clean.csv. 
+This program was developed to automate the workflow of fetching data from PostgreSQL, 
+cleaning the data using Python, and exporting the processed data to Elasticsearch.
+
+The dataset used is a transaction record of electronic add-on products, 
+spanning the years 2023 to 2024 and consisting of approximately 20,000 rows.
+
+For additional reference, the raw dataset is included in this directory as 
+'electronic_data_raw.csv', and the cleaned, processed version generated through 
+the ETL pipeline is saved as 'electronic_data_clean.csv'.
 =================================================
 """
 
@@ -26,22 +31,21 @@ csv_path = "/opt/airflow/dags/P2M3_ediashta_narendra_data_clean.csv"
 # TASK 1 FETCH DATA FROM POSTGRES
 def fetch_data():
 """
-Fungsi/node ini ditujukan untuk memperoleh dataset raw yang tersimpan pada PostgresSQL, 
-sehingga dapat dilakukan pemrosesan data lebih lanjut berupa data cleaning.
-Berikut ini adalah ketergangan detail fungsi fetch_data:
+    This function/node is intended to retrieve the raw dataset stored in PostgreSQL, 
+    enabling further data processing such as data cleaning.
 
-Parameters:
-    host        : string - hostname pada PostgresSQL
-    database    : string - nama database pada PostgresSQL yang menjadi lokasi database penyimpanan .csv raw 
-    user        : string - nama user pada PostgresSQL yang memiliki hak akses database dan table didalamnya
-    password    : string - credential dari nama user yang digunakan
-    port        : integer - port number yang digunakan untuk melakukan koneksi dengan PostgresSQL
+    Parameters:
+        host        : str   - The hostname of the PostgreSQL server.
+        database    : str   - The name of the PostgreSQL database where the raw CSV data is stored.
+        user        : str   - The username with access privileges to the database and its tables.
+        password    : str   - The corresponding credential for the specified user.
+        port        : int   - The port number used to establish the connection with PostgreSQL.
 
-Returns:
-    df          : DataFrame - Data yang diambil dari PostgreSQL dalam bentuk pandas DataFrame.
+    Returns:
+        df          : DataFrame - The data retrieved from PostgreSQL, returned as a pandas DataFrame.
 
-Contoh Penggunaan:
-    df = fetch_data(
+    Example Usage:
+        df = fetch_data(
         host="postgres",
         database="airflow",
         user="airflow",
@@ -66,15 +70,21 @@ Contoh Penggunaan:
 # TASK 2 DATA CLEANING
 def clean_data():
 """
-    Fungsi/node ini ditujukan untuk proses cleaning data dengan menghapus duplikat, handling misiing, expand kolom add-ons purchased,
-    dan memperbaiki format dari beberapa kolom. Output yang dihasilkan adalah menyimpan data yang sudah dibersihkan ke CSV.
+    This function/node is designed for the data cleaning process, which includes 
+    removing duplicates, handling missing values, expanding the 'add-ons purchased' column, 
+    and correcting data formats for several columns. 
+
+    The final output is a cleaned dataset saved to a CSV file.
 
     Parameters:
-        csv_path    : string - Lokasi penyimpanan file csv untuk data yang akan dibersihkan dan nantinya menjadi tempat penyimpanan csv clean.
+        csv_path    : string - The file path of the CSV file to be cleaned, which will also be the destination for the cleaned CSV.
 
     Returns:
-        df_clean    : DataFrame - Data yang sudah dibersihkan akan disimpan kembali ke file CSV.
-    """
+        df_clean    : DataFrame - The cleaned dataset that will be saved back to a CSV file.
+
+    Example Usage:
+        df_clean = clean_data(csv_path='/opt/airflow/dags/electronic_data_raw.csv')
+"""
     # Load data
     df = pd.read_csv(csv_path)
    
@@ -125,23 +135,27 @@ def clean_data():
 # EXPORT TO ELASTICSEARCH
 def export_to_elastic():
 """
-    Node/function ini ditujukan untuk mengekspor data yang sudah dibersihkan sebelumnya ke indeks Elasticsearch.
+    This function/node is intended to export the cleaned dataset to an Elasticsearch index.
 
     Parameters:
-        csv_path        : string - Lokasi penyimpanan file CSV yang berisi data yang sudah dibersihkan.
-        elastic_host    : string - URL host Elasticsearch (default: "http://elasticsearch:9200").
-        index_name      : string - Nama indeks di Elasticsearch (default: "electo_trans_data").
+        csv_path        : string - Path to the cleaned CSV file to be exported.
+        elastic_host    : string - Elasticsearch host URL (default: "http://elasticsearch:9200").
+        index_name      : string - Name of the target index in Elasticsearch (default: "electo_trans_data").
 
     Returns:
-        None            : Data akan dikirim ke Elasticsearch sebagai dokumen.
+        None            : The data will be sent to Elasticsearch as documents.
 
-    Contoh Pengunaan:
-        csv_path = "/path/to/your/clean_dataset.csv"  # Ganti dengan lokasi file csv yang dituju
+    Example Usage:
+        csv_path = "/path/to/your/clean_dataset.csv"  # Replace with your actual CSV file path
         elastic_host = "http://elasticsearch:9200"
         index_name = "electo_trans_data"
-        export_to_elastic(csv_path=csv_path, elastic_host=elastic_host, index_name=index_name)
 
-    """
+        export_to_elastic(
+            csv_path=csv_path, 
+            elastic_host=elastic_host, 
+            index_name=index_name
+        )
+"""
     # Connect to elasticsearch
     elastic = Elasticsearch("http://elasticsearch:9200") 
     df=pd.read_csv(csv_path)
@@ -162,14 +176,14 @@ default_args= {
     'start_date': dt.datetime(2024, 11, 11)}
 #define pipeline step 
 """
-Pada pendefinisian schedule inteval pipeline digunakan Cron Expression dengan keterangan sebagai berikut:
-    Penjabaran of '30 6 * * *':
+In the pipeline schedule definition, a Cron Expression is used with the following explanation:
+    Breakdown of '30 6 * * *':
         30 - Run at minute 30
-        6 - Run at hour 6 (6:30 AM)
-        * - Run every day of the month
-        * - Run every month
-        * - Run on every day of the week
-    Sehingga definisi schedule_interbal = '30 6 * * *' dibawah ini menunjukkan bahwa task akan di-run setiap hari pada pukul 6.30 AM.
+        6  - Run at hour 6 (6:30 AM)
+        *  - Run every day of the month
+        *  - Run every month
+        *  - Run on every day of the week
+    Therefore, the definition schedule_interval = '30 6 * * *' indicates that the task will be executed every day at 6:30 AM.
 """
 with DAG(
         "PipelineM3",

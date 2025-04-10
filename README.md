@@ -10,7 +10,7 @@
     <section>
         <h2>Overview</h2>
         <p>
-            This project focuses on end-to-end data management and analytics related to the sales performance of electronic add-on products. It was initiated in response to a government regulation in late 2024 which restricts the sale of certain smartphone brands and models, which may indirectly influence consumer behavior in purchasing complementary products.
+            This project focuses on end-to-end data management and analytics related to the sales performance of electronic add-on products. It was initiated in response to a government regulation in late 2024 which restricts the sale of certain smartphone brands and models, which may indirectly influence consumer behavior in purchasing complementary products in 2025 fy.
         </p>   
         <p>
             To adapt to these market changes, the analysis aims to uncover insights into customer preferences, the correlation between add-on purchases and restricted product categories (i.e. smartphone), and overall sales trends. The primary business goal is to optimize product bundling strategies and improve sales targeting for electronic add-ons based on evidence from the data.
@@ -35,7 +35,7 @@
             <li>What are the most frequent purchase patterns for add-on items (e.g., bundling, cross-category preferences)?</li>
             <li>Is there a significant relationship between customer loyalty membership and the quantity/value of add-on purchases?</li>
             <li>How do add-on product sales trend over time (monthly, quarterly), and how are they affected by smartphone restrictions?</li>
-            <li>What consumer behavior patterns can be identified based on the chosen shipping methods (e.g., express vs regular)?</li>
+            <li>What consumer behavior patterns can be identified based on the chosen shipping methods (e.g., standard vs regular)?</li>
         </ul>
     <p>
         <h2>Data Modeling Process</h2>
@@ -53,15 +53,15 @@
             <li><strong>Data Analysis and Visualization using Kibana</strong> – Provides business users with real-time, interactive dashboards and insights.</li>
         </ul>
     <p>
-        <h2>Tech Stacks</h2>
+        <h2>Tech Stack</h2>
         <ul>
-            <li><strong>PostgreSQL</strong> - Source database containing raw transactional records</li>
-            <li><strong>Apache Airflow</strong> - Orchestration tool for automating the ETL pipeline</li>
-            <li><strong>Pandas & Python</strong> – Data transformation and feature engineering</li>
-            <li><strong>Elasticsearch</strong> – Indexing and storing structured data for analysis</li>
-            <li><strong>Kibana</strong> – Dashboarding and visualization layer</li>
-            <li><strong>Great Expectations</strong> – Data validation framework to ensure quality</li>
-            <li><strong>Docker</strong> – Containerization of services to ensure consistency and portability</li>
+            <li><strong>Programming Language:</strong> Python, SQL</li>
+            <li><strong>Libraries:</strong> Pandas, psycopg2, timedelta</li>
+            <li><strong>Visualization:</strong> Kibana</li>
+            <li><strong>Orchestration:</strong> Apache Airflow</li>
+            <li><strong>Validation:</strong> Great Expectations</li>
+            <li><strong>Container:</strong> Docker</li>
+            <li><strong>Database:</strong> PostgreSQL, Elasticsearch</li>
         </ul>
     <p>
         <h2>Deliverables</h2>
