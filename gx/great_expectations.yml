@@ -104,6 +104,18 @@ fluent_datasources:
         type: csv
         filepath_or_buffer: /Users/ediashtanarendra/Documents/Course 2024/FTDS 036/003_Phase
           2/Githup Repo P 2/002_MS3/project-m3/dags/P2M3_ediashta_narendra_data_clean.csv
+  clean-csv-electronic-transaction:
+    type: pandas
+    assets:
+      electronic-transaction-clean:
+        type: csv
+        filepath_or_buffer: electronic_data_clean.csv
+  cleancsv-electronic-transaction:
+    type: pandas
+    assets:
+      electronic-transaction-clean:
+        type: csv
+        filepath_or_buffer: electronic_data_clean.csv
 notebooks:
 include_rendered_content:
   globally: false
